@@ -1,29 +1,10 @@
 from dotenv import load_dotenv
-from data import PRODUCTS,DISCOUNTS,SHIPPING_DATA,PRICE_COMPARISON, RETURN_POLICIES
-from llm_model import model
+from src.data import PRODUCTS,DISCOUNTS,SHIPPING_DATA,PRICE_COMPARISON, RETURN_POLICIES
+from src.llm_model import model
 load_dotenv()
 
 
-# def tool_search_products(name=None, category=None, color=None, price_range=None, size=None):
-#     """
-#     Search for products based on user criteria.
-    
-#     :param name: Product name to search for.
-#     :param category: Category of the product. Available values are jackets,shoes, jeans,skirts
-#     :param color: Desired color of the product.
-#     :param price_range: Tuple (min_price, max_price) to filter products by price.
-#     :param size: Desired size of the product.
-#     :return: List of matching products.
-#     """
-#     results = [p for p in PRODUCTS if 
-#                (not name or name.lower() in p["name"].lower()) and
-#                (not category or category.lower() == p["category"].lower()) and
-#                (not color or color.lower() == p["color"].lower()) and
-#                (not price_range or price_range[0] <= p["price"] <= price_range[1]) and
-#                (not size or size in p["size"])]
-#     return results
-
-def tool_search_products(name=None, category=None, color=None, price_range=None, size=None):
+def tool_search_products(name:str=None, category:str=None, color:str=None, price_range:tuple=None, size:float=None):
     """
     Search for products based on user criteria using LLM.
     
@@ -47,7 +28,7 @@ def tool_search_products(name=None, category=None, color=None, price_range=None,
 
 
 
-def tool_estimate_shipping(store, shipping_type):
+def tool_estimate_shipping(store:str, shipping_type:str):
     """
     Estimate shipping time and cost based on store and shipping type.
     
@@ -74,14 +55,26 @@ def tool_apply_discount(store:str, base_price:float, promo_code:str):
     return base_price
 
 
-def tool_compare_prices(product_name:str):
+def tool_compare_prices(product_name:str, product_price:float):
     """
     Compare prices of a specific product across different online stores.
     
     :param product_name: Name of the product to compare.
+    :param product_price: Price of the product to compare.
     :return: List of dictionaries with store names and prices.
     """
-    return PRICE_COMPARISON.get(product_name, [])
+    prompt = f"""User is asking for a price comparison for the product: {product_name} having a price of {product_price}.
+    Your task is to find better deals if any from our DB.
+    Available products in our database are:
+    {PRICE_COMPARISON}
+    
+    Instructions: Do not write any code, just return the product details if any
+    See if there are any better price deals for the product available.
+
+    Output will be a better deal if available else say 'no better deals found'
+    """
+
+    return model.invoke(prompt).content
 
 
 def tool_get_return_policy(store:str):

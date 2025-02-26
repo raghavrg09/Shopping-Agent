@@ -1,7 +1,7 @@
 import streamlit as st
 from contextlib import contextmanager
-from agent import app
-import simple_colors
+import os
+
 import json
 import uuid
 
@@ -91,8 +91,12 @@ st.header("_Shoppin Assistant_")
 st.divider()
     
 
+# initialising empty name and message in session state
 if 'name' not in st.session_state:
     st.session_state.name = ''
+
+if 'openai_api_key' not in st.session_state:
+    st.session_state.openai_api_key = ''
 
 if 'messages' not in st.session_state:
     st.session_state.messages = []
@@ -100,20 +104,29 @@ if 'messages' not in st.session_state:
 
 if st.session_state.name == '':
     name_input_placeholder = st.empty()  # Create a placeholder for the name input
+    api_key_placeholder = st.empty()
     button_placeholder = st.empty()      # Create a placeholder for the button
 
     with name_input_placeholder:
         name_input = st.text_input('Enter your name')
+    
+    with api_key_placeholder:
+        openai_api_key = st.text_input("Enter OpenAI key")
 
     with button_placeholder:
         submit_button = st.button('Submit')
 
-    if submit_button and name_input:
+    if submit_button and name_input and openai_api_key:
         st.session_state.name = name_input
+        st.session_state.openai_api_key = openai_api_key
+        os.environ['OPENAI_API_KEY'] = openai_api_key
         name_input_placeholder.empty()   # Clear the name input box
-        button_placeholder.empty() 
+        api_key_placeholder.empty()
+        button_placeholder.empty()
+    elif submit_button and name_input:
+        st.error("Enter OpenAI key")
 
-
+# sidebar for tool calling and agent response in realtime
 with st.sidebar:
     st.header("Real-time Tool Calls & Responses")
     tool_calls_container = st.empty()  # Placeholder for tool calls
@@ -121,6 +134,7 @@ with st.sidebar:
 
 
 def add_message(role, message_id,content):
+    "Function to add message in the session state for display"
     st.session_state.messages.append({
         "id": message_id,
         "role": role, 
@@ -130,6 +144,7 @@ def add_message(role, message_id,content):
 
 
 def display_chat_history():
+    "This function will display previous chat history in session state"
     # Add custom CSS for message bubbles and feedback
     st.markdown("""
         <style>
@@ -193,7 +208,8 @@ def display_chat_history():
                 """, unsafe_allow_html=True)
 
 
-if st.session_state.name:
+if st.session_state.name and st.session_state.openai_api_key:
+    from src.agent import app
     
     display_chat_history()
 
@@ -224,16 +240,17 @@ if st.session_state.name:
                             .get("function")
                         )
                         tool_calls.append(
-                            {
+                            str({
                                 func_detected.get("name"): json.loads(func_detected.get("arguments"))
-                            }
+                            })
                         )
+                        # tool_calls.append("\n\n")
                         # Update the tool call sidebar
-                        tool_calls_container.write(f"**Tool Calls:**\n\n:blue[{tool_calls}]")
+                        tool_calls_container.write(f"**:green[Tool Calls]:**\n\n{'\n\n'.join(tool_calls)}")
 
                     # Update the response container
                     response_text = value["messages"][0].content
-                    response_container.write(f"**Response:** {response_text}")
+                    response_container.write(f"**:green[Response]:** \n\n{response_text}")
 
         
         with st.chat_message("ai", avatar="https://i.gifer.com/LCPT.gif"):
