@@ -56,3 +56,8 @@ Tool Execution Errors → External APIs can fail unexpectedly.
 ["ReAct: Synergizing Reasoning and Acting in Language Models" – Yao et al.](https://arxiv.org/abs/2210.03629)
 
 ["Toolformer"](https://arxiv.org/abs/2302.04761)
+
+# Usage
+**Note:** Declare **OPENAI_API_KEY** in a .env file
+`pip install -r requirements.txt`
+`streamlit run st_app.py`
