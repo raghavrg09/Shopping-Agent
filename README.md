@@ -7,6 +7,8 @@ An AI-powered shopping assistant designed to streamline product searches, compar
 
 📌 Comparative Conceptual Map
 Approaches Considered:
+
+
 | Rule-Based | Fast, deterministic | Limited flexibility |
 | RAG | Knowledge-enriched | Computationally expensive |
 | Agent-Based | Scalable, autonomous | Requires fine-tuning |
