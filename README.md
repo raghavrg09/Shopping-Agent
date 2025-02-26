@@ -7,28 +7,47 @@ An AI-powered shopping assistant designed to streamline product searches, compar
 
 # ⚙️ Design Decisions
 ## Agent Architecture
-ReAct Used (Graph Workflow recommended for controlled execution)\n\n
-LLM-Powered Decision Making: Uses OpenAI/GPT models.\n\n
-Multi-Step Reasoning: The agent sequentially evaluates user needs.\n\n
-Tool Usage: Integrates search APIs and knowledge graphs.\n\n
+ReAct Used (Graph Workflow recommended for controlled execution)
+
+
+LLM-Powered Decision Making: Uses OpenAI/GPT models.
+
+
+Multi-Step Reasoning: The agent sequentially evaluates user needs.
+
+
+Tool Usage: Integrates search APIs and knowledge graphs.
+
 ## Tool Selection
-LangGraph: For structured agent workflows.\n\n
+LangGraph: For structured agent workflows.
 ###### _Recommended_
-Vector Search (FAISS/Neo4j): For contextual memory.\n\n
-FastAPI Backend: For efficient request handling.\n\n
+Vector Search (FAISS/Neo4j): For contextual memory.
+
+
+FastAPI Backend: For efficient request handling.
 
 
 # 🚧 Challenges & Improvements
 
 ## Challenges
-Handling Ambiguous Queries → Users may provide vague inputs.\n\n
-Latency Issues → LLM calls introduce delays.\n\n
-Tool Execution Errors → External APIs can fail unexpectedly.\n\n
+Handling Ambiguous Queries → Users may provide vague inputs.
+
+
+Latency Issues → LLM calls introduce delays.
+
+
+Tool Execution Errors → External APIs can fail unexpectedly.
 
 ## Improvements
-✅ Prompt Engineering → Refined instructions to improve accuracy.\n\n
-✅ Hybrid Search → Combined keyword + vector search for better retrieval.\n\n
-✅ Caching Strategies → Reduced API calls by 30%.\n\n
+✅ Prompt Engineering → Refined instructions to improve accuracy.
+
+
+✅ Hybrid Search → Combined keyword + vector search for better retrieval.
+
+
+✅ Caching Strategies → Reduced API calls by 30%.
+
+
 ✅ Custom Graph Based Workflow
 
 # 📖 References
