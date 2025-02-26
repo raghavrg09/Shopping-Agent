@@ -59,5 +59,14 @@ Tool Execution Errors → External APIs can fail unexpectedly.
 
 # Usage
 **Note:** Declare **OPENAI_API_KEY** in a .env file
+
+
 `pip install -r requirements.txt`
+
+
 `streamlit run st_app.py`
+
+
+# Streamlit App link
+
+[App Link](https://shoppinagent.streamlit.app/)
