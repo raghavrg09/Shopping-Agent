@@ -1,3 +1,6 @@
+![alt text](image.png)
+
+
 🛒 Shopping Agent
 An AI-powered shopping assistant designed to streamline product searches, comparisons, and decision-making using LLMs and intelligent agent workflows.
 
