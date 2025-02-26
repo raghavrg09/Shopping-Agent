@@ -7,13 +7,10 @@ An AI-powered shopping assistant designed to streamline product searches, compar
 
 📌 Comparative Conceptual Map
 Approaches Considered:
-Rule-Based Systems → Simple but lacks adaptability.
-Retrieval-Augmented Generation (RAG) → Provides more contextual responses.
-Agent-Based Systems → Autonomous reasoning and decision-making.
-Approach	Pros	Cons
-Rule-Based	Fast, deterministic	Limited flexibility
-RAG	Knowledge-enriched	Computationally expensive
-Agent-Based	Scalable, autonomous	Requires fine-tuning
+| Rule-Based | Fast, deterministic | Limited flexibility |
+| RAG | Knowledge-enriched | Computationally expensive |
+| Agent-Based | Scalable, autonomous | Requires fine-tuning |
+
 
 
 ⚙️ Design Decisions
