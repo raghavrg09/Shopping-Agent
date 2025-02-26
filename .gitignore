@@ -1,5 +1,4 @@
 *.drawio
 __pycache__/
-*.docx
 *.ipynb
 *.env
